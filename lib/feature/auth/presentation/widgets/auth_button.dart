@@ -2,8 +2,9 @@ import 'package:bloc_app_clean_solidp_bloc/core/theme/app_pallete.dart';
 import 'package:flutter/material.dart';
 
 class AuthButton extends StatelessWidget {
-  const AuthButton({super.key, required this.onPressed});
+  const AuthButton({super.key, required this.onPressed, required this.text});
   final VoidCallback onPressed;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class AuthButton extends StatelessWidget {
           shadowColor: AppPallete.transparentColor,
         ),
         child: Text(
-          'Sign Up',
+          text,
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
       ),

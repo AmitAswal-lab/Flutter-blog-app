@@ -13,6 +13,7 @@ class AppTheme {
       enabledBorder: _border(),
       focusedBorder: _border(AppPallete.gradient1),
       errorBorder: _border(AppPallete.errorColor),
+      focusedErrorBorder: _border(AppPallete.errorColor),
     ),
   );
 }

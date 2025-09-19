@@ -1,26 +1,24 @@
 import 'package:bloc_app_clean_solidp_bloc/core/theme/app_pallete.dart';
 import 'package:bloc_app_clean_solidp_bloc/core/utils/validators.dart';
-import 'package:bloc_app_clean_solidp_bloc/feature/auth/presentation/screens/login_screen.dart';
+import 'package:bloc_app_clean_solidp_bloc/feature/auth/presentation/screens/signup_screen.dart';
 import 'package:bloc_app_clean_solidp_bloc/feature/auth/presentation/widgets/auth_button.dart';
 import 'package:bloc_app_clean_solidp_bloc/feature/auth/presentation/widgets/auth_field.dart';
 import 'package:flutter/material.dart';
 
-class SignupScreen extends StatefulWidget {
-  const SignupScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<SignupScreen> createState() => _SignupScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _SignupScreenState extends State<SignupScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   @override
   void dispose() {
-    nameController.dispose();
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
@@ -38,16 +36,10 @@ class _SignupScreenState extends State<SignupScreen> {
               child: Column(
                 children: [
                   Text(
-                    'Sign up',
+                    'LogIn',
                     style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 40),
-                  AuthField(
-                    hintText: 'Name',
-                    controller: nameController,
-                    validator: Validators.validateName,
-                  ),
-                  SizedBox(height: 20),
                   AuthField(
                     hintText: 'Email',
                     controller: emailController,
@@ -62,7 +54,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                   SizedBox(height: 30),
                   AuthButton(
-                    text: 'Sign Up',
+                    text: 'LogIn',
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {}
                     },
@@ -71,16 +63,16 @@ class _SignupScreenState extends State<SignupScreen> {
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(
-                        MaterialPageRoute(builder: (ctx) => LoginScreen()),
+                        MaterialPageRoute(builder: (ctx) => SignupScreen()),
                       );
                     },
                     child: RichText(
                       text: TextSpan(
-                        text: 'Already have an Account?  ',
+                        text: 'I don\'t have an Account ',
                         style: Theme.of(context).textTheme.titleMedium,
                         children: [
                           TextSpan(
-                            text: 'LogIn',
+                            text: 'Sign Up',
                             style: Theme.of(context).textTheme.titleMedium!
                                 .copyWith(
                                   color: AppPallete.gradient3,
