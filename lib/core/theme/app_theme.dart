@@ -12,6 +12,7 @@ class AppTheme {
       contentPadding: EdgeInsets.all(25),
       enabledBorder: _border(),
       focusedBorder: _border(AppPallete.gradient1),
+      errorBorder: _border(AppPallete.errorColor),
     ),
   );
 }
