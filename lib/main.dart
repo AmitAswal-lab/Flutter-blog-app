@@ -1,6 +1,5 @@
 import 'package:bloc_app_clean_solidp_bloc/core/theme/app_theme.dart';
 import 'package:bloc_app_clean_solidp_bloc/feature/auth/presentation/screens/login_screen.dart';
-import 'package:bloc_app_clean_solidp_bloc/feature/auth/presentation/screens/signup_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
