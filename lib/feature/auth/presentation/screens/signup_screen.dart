@@ -1,9 +1,11 @@
 import 'package:bloc_app_clean_solidp_bloc/core/theme/app_pallete.dart';
 import 'package:bloc_app_clean_solidp_bloc/core/utils/validators.dart';
+import 'package:bloc_app_clean_solidp_bloc/feature/auth/presentation/bloc/auth_bloc.dart';
 import 'package:bloc_app_clean_solidp_bloc/feature/auth/presentation/screens/login_screen.dart';
 import 'package:bloc_app_clean_solidp_bloc/feature/auth/presentation/widgets/auth_button.dart';
 import 'package:bloc_app_clean_solidp_bloc/feature/auth/presentation/widgets/auth_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -65,7 +67,15 @@ class _SignupScreenState extends State<SignupScreen> {
                   AuthButton(
                     text: 'Sign Up',
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {}
+                      if (_formKey.currentState!.validate()) {
+                        context.read<AuthBloc>().add(
+                          AuthSignup(
+                            name: nameController.text.trim(),
+                            email: emailController.text.trim(),
+                            paswword: passwordController.text.trim(),
+                          ),
+                        );
+                      }
                     },
                   ),
                   SizedBox(height: 20),

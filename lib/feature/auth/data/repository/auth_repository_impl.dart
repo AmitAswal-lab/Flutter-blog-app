@@ -1,11 +1,12 @@
+import 'package:bloc_app_clean_solidp_bloc/core/error/exceptions.dart';
 import 'package:bloc_app_clean_solidp_bloc/core/error/failure.dart';
 import 'package:bloc_app_clean_solidp_bloc/feature/auth/data/datasources/auth_remote_datasource.dart';
-import 'package:bloc_app_clean_solidp_bloc/feature/auth/domain/auth_repository.dart';
+import 'package:bloc_app_clean_solidp_bloc/feature/auth/domain/repository/auth_repository.dart';
 import 'package:fpdart/fpdart.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDatasource authRemoteDatasource;
-  AuthRepositoryImpl({required this.authRemoteDatasource});
+  AuthRepositoryImpl(this.authRemoteDatasource);
 
   @override
   Future<Either<Failure, String>> loginWithEmailPassword({
@@ -28,6 +29,9 @@ class AuthRepositoryImpl implements AuthRepository {
         email: email,
         password: password,
       );
-    } catch (e) {}
+      return right(userId);
+    } on ServerException catch (e) {
+      return left(Failure(e.message));
+    }
   }
 }
