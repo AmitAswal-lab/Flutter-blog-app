@@ -12,10 +12,10 @@ final serverLocator = GetIt.instance;
 Future<void> initDependencies() async {
   _initAuth();
   final supabase = await Supabase.initialize(
-    anonKey: SupabaseSecrets.annonKey,
+    anonKey: SupabaseSecrets.anonKey,
     url: SupabaseSecrets.supabaseUrl,
   );
-  serverLocator.registerLazySingleton(() => supabase.client);
+  serverLocator.registerLazySingleton<SupabaseClient>(() => supabase.client);
 }
 
 void _initAuth() {
