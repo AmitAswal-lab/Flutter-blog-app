@@ -1,6 +1,6 @@
 import 'package:bloc_app_clean_solidp_bloc/core/error/failure.dart';
 import 'package:bloc_app_clean_solidp_bloc/core/usecase/usecase.dart';
-import 'package:bloc_app_clean_solidp_bloc/feature/auth/domain/entities/user.dart';
+import 'package:bloc_app_clean_solidp_bloc/core/common/enitites/user.dart';
 import 'package:bloc_app_clean_solidp_bloc/feature/auth/domain/repository/auth_repository.dart';
 import 'package:fpdart/fpdart.dart';
 
