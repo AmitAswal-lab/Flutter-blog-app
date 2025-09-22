@@ -2,6 +2,7 @@ import 'package:bloc_app_clean_solidp_bloc/core/common/cubits/app_user/app_user_
 import 'package:bloc_app_clean_solidp_bloc/core/theme/app_theme.dart';
 import 'package:bloc_app_clean_solidp_bloc/feature/auth/presentation/bloc/auth_bloc.dart';
 import 'package:bloc_app_clean_solidp_bloc/feature/auth/presentation/screens/login_screen.dart';
+import 'package:bloc_app_clean_solidp_bloc/feature/blog/presentation/screens/blog_screen.dart';
 import 'package:bloc_app_clean_solidp_bloc/init_dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,7 +48,7 @@ class _MyAppState extends State<MyApp> {
         },
         builder: (context, isloggedIn) {
           if (isloggedIn) {
-            return Scaffold(body: Center(child: Text('Logged In')));
+            return const BlogScreen();
           }
           return const LoginScreen();
         },
