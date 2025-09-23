@@ -7,6 +7,11 @@ import 'package:bloc_app_clean_solidp_bloc/feature/auth/domain/usecases/current_
 import 'package:bloc_app_clean_solidp_bloc/feature/auth/domain/usecases/user_login.dart';
 import 'package:bloc_app_clean_solidp_bloc/feature/auth/domain/usecases/user_signup.dart';
 import 'package:bloc_app_clean_solidp_bloc/feature/auth/presentation/bloc/auth_bloc.dart';
+import 'package:bloc_app_clean_solidp_bloc/feature/blog/data/datasources/blog_remote_datasource.dart';
+import 'package:bloc_app_clean_solidp_bloc/feature/blog/data/repository/blog_repository_impl.dart';
+import 'package:bloc_app_clean_solidp_bloc/feature/blog/domain/repository/blog_repository.dart';
+import 'package:bloc_app_clean_solidp_bloc/feature/blog/domain/usecases/upload_blog.dart';
+import 'package:bloc_app_clean_solidp_bloc/feature/blog/presentation/bloc/blog_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -14,6 +19,7 @@ final serverLocator = GetIt.instance;
 
 Future<void> initDependencies() async {
   _initAuth();
+  _initBlog();
   final supabase = await Supabase.initialize(
     anonKey: SupabaseSecrets.anonKey,
     url: SupabaseSecrets.supabaseUrl,
@@ -24,22 +30,38 @@ Future<void> initDependencies() async {
 }
 
 void _initAuth() {
-  serverLocator.registerFactory<AuthRemoteDatasource>(
-    () => AuthRemoteDatasourceImpl(serverLocator()),
-  );
-  serverLocator.registerFactory<AuthRepository>(
-    () => AuthRepositoryImpl(serverLocator()),
-  );
-  serverLocator.registerFactory(() => UserSignup(serverLocator()));
-  serverLocator.registerFactory(() => UserLogin(serverLocator()));
-  serverLocator.registerFactory(() => CurrentUser(serverLocator()));
+  //DataSource
+  serverLocator
+    ..registerFactory<AuthRemoteDatasource>(
+      () => AuthRemoteDatasourceImpl(serverLocator()),
+    )
+    //Repository
+    ..registerFactory<AuthRepository>(() => AuthRepositoryImpl(serverLocator()))
+    //Usecases
+    ..registerFactory(() => UserSignup(serverLocator()))
+    ..registerFactory(() => UserLogin(serverLocator()))
+    ..registerFactory(() => CurrentUser(serverLocator()))
+    //Bloc
+    ..registerLazySingleton(
+      () => AuthBloc(
+        userSignup: serverLocator(),
+        userLogin: serverLocator(),
+        currentUser: serverLocator(),
+        appUserCubit: serverLocator(),
+      ),
+    );
+}
 
-  serverLocator.registerLazySingleton(
-    () => AuthBloc(
-      userSignup: serverLocator(),
-      userLogin: serverLocator(),
-      currentUser: serverLocator(),
-      appUserCubit: serverLocator(),
-    ),
-  );
+void _initBlog() {
+  //DataSource
+  serverLocator
+    ..registerFactory<BlogRemoteDatasource>(
+      () => BlogRemoteDatasourceImpl(serverLocator()),
+    )
+    //repository
+    ..registerFactory<BlogRepository>(() => BlogRepositoryImpl(serverLocator()))
+    //Usecases
+    ..registerFactory(() => UploadBlog(serverLocator()))
+    //Bloc
+    ..registerLazySingleton(() => BlogBloc(serverLocator()));
 }
