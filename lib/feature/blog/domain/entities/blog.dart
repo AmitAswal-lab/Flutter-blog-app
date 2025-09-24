@@ -3,10 +3,11 @@ class Blog {
   final String id;
   final String posterId;
   final String title;
-  final String content; 
+  final String content;
   final List<String> topics;
   final String imageUrl;
   final DateTime updatedAT;
+  final String? posterName;
 
   Blog({
     required this.id,
@@ -16,6 +17,6 @@ class Blog {
     required this.topics,
     required this.imageUrl,
     required this.updatedAT,
+    this.posterName,
   });
-
 }
