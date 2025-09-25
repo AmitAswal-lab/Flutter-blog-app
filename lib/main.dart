@@ -14,9 +14,9 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => serverLocator<AppUserCubit>()),
-        BlocProvider(create: (context) => serverLocator<AuthBloc>()),
-        BlocProvider(create: (context) => serverLocator<BlogBloc>()),
+        BlocProvider(create: (context) => serviceLocator<AppUserCubit>()),
+        BlocProvider(create: (context) => serviceLocator<AuthBloc>()),
+        BlocProvider(create: (context) => serviceLocator<BlogBloc>()),
       ],
       child: const MyApp(),
     ),
