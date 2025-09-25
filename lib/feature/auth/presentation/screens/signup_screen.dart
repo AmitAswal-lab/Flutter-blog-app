@@ -6,6 +6,7 @@ import 'package:bloc_app_clean_solidp_bloc/feature/auth/presentation/bloc/auth_b
 import 'package:bloc_app_clean_solidp_bloc/feature/auth/presentation/screens/login_screen.dart';
 import 'package:bloc_app_clean_solidp_bloc/feature/auth/presentation/widgets/auth_button.dart';
 import 'package:bloc_app_clean_solidp_bloc/feature/auth/presentation/widgets/auth_field.dart';
+import 'package:bloc_app_clean_solidp_bloc/feature/blog/presentation/screens/blog_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -42,6 +43,10 @@ class _SignupScreenState extends State<SignupScreen> {
               listener: (context, state) {
                 if (state is AuthFailure) {
                   showSnackbar(context, state.message);
+                } else if (state is AuthSuccess) {
+                  Navigator.of(
+                    context,
+                  ).pushAndRemoveUntil(BlogScreen.route(), (route) => false);
                 }
               },
               builder: (context, state) {

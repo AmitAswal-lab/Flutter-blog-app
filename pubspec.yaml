@@ -2,7 +2,7 @@ name: bloc_app_clean_solidp_bloc
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -38,6 +38,14 @@ dependencies:
   supabase_flutter: ^2.10.1
   flutter_bloc: ^9.1.1
   get_it: ^8.2.0
+  dotted_decoration: ^2.0.0
+  image_picker: ^1.2.0
+  uuid: ^4.5.1
+  intl: ^0.20.2
+  internet_connection_checker_plus: ^2.9.0
+  isar: ^3.1.0+1
+  isar_flutter_libs: ^3.1.0+1
+  path_provider: ^2.1.5
 
 dev_dependencies:
   flutter_test:
@@ -49,13 +57,15 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
+  build_runner: ^2.4.8
+  isar_generator: ^3.1.0+1
+  analyzer: ^5.13.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -91,3 +101,6 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+  # Add this section at the end of the file
+dependency_overrides:
+  analyzer: ^6.4.1

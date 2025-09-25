@@ -1,4 +1,5 @@
 import 'package:bloc_app_clean_solidp_bloc/core/common/cubits/app_user/app_user_cubit.dart';
+import 'package:bloc_app_clean_solidp_bloc/core/network/connection_checker.dart';
 import 'package:bloc_app_clean_solidp_bloc/core/secrets/supabase_secrets.dart';
 import 'package:bloc_app_clean_solidp_bloc/feature/auth/data/datasources/auth_remote_datasource.dart';
 import 'package:bloc_app_clean_solidp_bloc/feature/auth/data/repository/auth_repository_impl.dart';
@@ -7,39 +8,18 @@ import 'package:bloc_app_clean_solidp_bloc/feature/auth/domain/usecases/current_
 import 'package:bloc_app_clean_solidp_bloc/feature/auth/domain/usecases/user_login.dart';
 import 'package:bloc_app_clean_solidp_bloc/feature/auth/domain/usecases/user_signup.dart';
 import 'package:bloc_app_clean_solidp_bloc/feature/auth/presentation/bloc/auth_bloc.dart';
+import 'package:bloc_app_clean_solidp_bloc/feature/blog/data/datasources/blog_local_datasource.dart';
+import 'package:bloc_app_clean_solidp_bloc/feature/blog/data/datasources/blog_remote_datasource.dart';
+import 'package:bloc_app_clean_solidp_bloc/feature/blog/data/repository/blog_repository_impl.dart';
+import 'package:bloc_app_clean_solidp_bloc/feature/blog/domain/repository/blog_repository.dart';
+import 'package:bloc_app_clean_solidp_bloc/feature/blog/domain/usecases/get_all_blogs.dart';
+import 'package:bloc_app_clean_solidp_bloc/feature/blog/domain/usecases/upload_blog.dart';
+import 'package:bloc_app_clean_solidp_bloc/feature/blog/presentation/bloc/blog_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:isar/isar.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:bloc_app_clean_solidp_bloc/feature/blog/data/models/blog_model.dart';
 
-final serverLocator = GetIt.instance;
-
-Future<void> initDependencies() async {
-  _initAuth();
-  final supabase = await Supabase.initialize(
-    anonKey: SupabaseSecrets.anonKey,
-    url: SupabaseSecrets.supabaseUrl,
-  );
-  serverLocator.registerLazySingleton<SupabaseClient>(() => supabase.client);
-  //core
-  serverLocator.registerLazySingleton(() => AppUserCubit());
-}
-
-void _initAuth() {
-  serverLocator.registerFactory<AuthRemoteDatasource>(
-    () => AuthRemoteDatasourceImpl(serverLocator()),
-  );
-  serverLocator.registerFactory<AuthRepository>(
-    () => AuthRepositoryImpl(serverLocator()),
-  );
-  serverLocator.registerFactory(() => UserSignup(serverLocator()));
-  serverLocator.registerFactory(() => UserLogin(serverLocator()));
-  serverLocator.registerFactory(() => CurrentUser(serverLocator()));
-
-  serverLocator.registerLazySingleton(
-    () => AuthBloc(
-      userSignup: serverLocator(),
-      userLogin: serverLocator(),
-      currentUser: serverLocator(),
-      appUserCubit: serverLocator(),
-    ),
-  );
-}
+part 'init_dependencies_main.dart';

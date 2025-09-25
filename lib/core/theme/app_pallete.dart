@@ -10,4 +10,10 @@ class AppPallete {
   static const Color greyColor = Colors.grey;
   static const Color errorColor = Color.fromARGB(255, 215, 83, 83);
   static const Color transparentColor = Colors.transparent;
+
+  // --- Card Colors ---
+  static const Color cardRed = Color.fromRGBO(214, 89, 89, 1);
+  static const Color cardGreen = Color.fromRGBO(72, 181, 107, 1);
+  static const Color cardYellow = Color.fromRGBO(226, 201, 71, 1);
+  static const Color cardPurple = Color.fromRGBO(140, 122, 230, 1);
 }
