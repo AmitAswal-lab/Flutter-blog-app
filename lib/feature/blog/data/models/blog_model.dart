@@ -7,7 +7,7 @@ class BlogModel extends Blog {
     required super.title,
     required super.content,
     required super.topics,
-    required super.updatedAT,
+    required super.updatedAt,
     required super.imageUrl,
     super.posterName,
   });
@@ -19,7 +19,7 @@ class BlogModel extends Blog {
     String? content,
     List<String>? topics,
     String? imageUrl,
-    DateTime? updatedAT,
+    DateTime? updatedAt,
     String? posterName,
   }) {
     return BlogModel(
@@ -29,7 +29,7 @@ class BlogModel extends Blog {
       content: content ?? this.content,
       topics: topics ?? this.topics,
       imageUrl: imageUrl ?? this.imageUrl,
-      updatedAT: updatedAT ?? this.updatedAT,
+      updatedAt: updatedAt ?? this.updatedAt,
       posterName: posterName ?? this.posterName,
     );
   }
@@ -42,7 +42,7 @@ class BlogModel extends Blog {
       'content': content,
       'topics': topics,
       'image_url': imageUrl,
-      'updated_at': updatedAT.toIso8601String(),
+      'updated_at': updatedAt.toIso8601String(),
     };
   }
 
@@ -54,7 +54,7 @@ class BlogModel extends Blog {
       content: map['content'] as String,
       imageUrl: map['image_url'] as String,
       topics: List<String>.from(map['topics']),
-      updatedAT: map['updated_at'] == null
+      updatedAt: map['updated_at'] == null
           ? DateTime.now()
           : DateTime.parse(map['updated_at']),
     );

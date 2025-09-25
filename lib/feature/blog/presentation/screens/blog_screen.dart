@@ -1,7 +1,9 @@
 import 'package:bloc_app_clean_solidp_bloc/core/common/widgets/loader.dart';
+import 'package:bloc_app_clean_solidp_bloc/core/theme/app_pallete.dart';
 import 'package:bloc_app_clean_solidp_bloc/core/utils/show_snackbar.dart';
 import 'package:bloc_app_clean_solidp_bloc/feature/blog/presentation/bloc/blog_bloc.dart';
 import 'package:bloc_app_clean_solidp_bloc/feature/blog/presentation/screens/add_new_blog_screen.dart';
+import 'package:bloc_app_clean_solidp_bloc/feature/blog/presentation/widgets/blog_card.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +53,16 @@ class _BlogScreenState extends State<BlogScreen> {
               itemCount: state.blogs.length,
               itemBuilder: (ctx, index) {
                 final blog = state.blogs[index];
-                return Text(blog.title);
+                return BlogCard(
+                  blog: blog,
+                  color: index % 4 == 0
+                      ? AppPallete.cardRed
+                      : index % 4 == 1
+                      ? AppPallete.cardGreen
+                      : index % 4 == 2
+                      ? AppPallete.cardYellow
+                      : AppPallete.cardPurple,
+                );
               },
             );
           }
