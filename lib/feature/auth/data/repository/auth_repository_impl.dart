@@ -6,7 +6,6 @@ import 'package:bloc_app_clean_solidp_bloc/core/common/enitites/user.dart';
 import 'package:bloc_app_clean_solidp_bloc/feature/auth/data/models/user_model.dart';
 import 'package:bloc_app_clean_solidp_bloc/feature/auth/domain/repository/auth_repository.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:supabase_flutter/supabase_flutter.dart' as sb;
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDatasource authRemoteDatasource;
@@ -75,8 +74,6 @@ class AuthRepositoryImpl implements AuthRepository {
       }
       final user = await fn();
       return right(user);
-    } on sb.AuthException catch (e) {
-      return left(Failure(e.message));
     } on ServerException catch (e) {
       return left(Failure(e.message));
     }

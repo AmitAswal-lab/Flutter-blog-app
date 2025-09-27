@@ -1,4 +1,5 @@
-part of 'init_dependencies_main.dart';
+
+part of 'init_dependencies.dart';
 
 final serviceLocator = GetIt.instance;
 
