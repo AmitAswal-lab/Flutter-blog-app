@@ -5,17 +5,14 @@ final serviceLocator = GetIt.instance;
 Future<void> initDependencies() async {
   _initAuth();
   _initBlog();
-  // Initialize SupaBase
+
+  Hive.defaultDirectory = (await getApplicationDocumentsDirectory()).path;
+  serviceLocator.registerLazySingleton(() => Hive.box(name: 'blogs'));
+
   final supabase = await Supabase.initialize(
     anonKey: SupabaseSecrets.anonKey,
     url: SupabaseSecrets.supabaseUrl,
   );
-  // Initialize Isar
-  final dir = await getApplicationDocumentsDirectory();
-  final isar = await Isar.open([BlogModelSchema], directory: dir.path);
-
-  serviceLocator.registerLazySingleton<Isar>(() => isar);
-
   serviceLocator.registerLazySingleton<SupabaseClient>(() => supabase.client);
   serviceLocator.registerFactory(() => InternetConnection());
   //core

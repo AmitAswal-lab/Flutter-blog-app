@@ -1,26 +1,33 @@
 import 'package:bloc_app_clean_solidp_bloc/feature/blog/data/models/blog_model.dart';
-import 'package:isar/isar.dart';
+import 'package:hive/hive.dart';
 
 abstract interface class BlogLocalDatasource {
-  void cacheBlogs({required List<BlogModel> blogs});
+  void cacheLocalBlogs({required List<BlogModel> blogs});
   List<BlogModel> loadBlogs();
 }
 
 class BlogLocalDatasourceImpl implements BlogLocalDatasource {
-  final Isar isar;
-  BlogLocalDatasourceImpl(this.isar);
+  final Box box;
+  BlogLocalDatasourceImpl(this.box);
+
   @override
-  List<BlogModel> loadBlogs() {
-    // Use a read transaction to get all blogs from the collection
-    return isar.blogModels.where().findAllSync();
+  void cacheLocalBlogs({required List<BlogModel> blogs}) {
+    box.clear();
+    box.write(() {
+      for (int i = 0; i < blogs.length; i++) {
+        box.put(i.toString(), blogs[i].toJson());
+      }
+    });
   }
 
   @override
-  void cacheBlogs({required List<BlogModel> blogs}) {
-    // Use a read transaction to get all blogs from the collection
-    isar.writeTxnSync(() {
-      isar.blogModels.clearSync();
-      isar.blogModels.putAllSync(blogs);
+  List<BlogModel> loadBlogs() {
+    List<BlogModel> blogs = [];
+    box.read(() {
+      for (int i = 0; i < box.length; i++) {
+        blogs.add(BlogModel.fromJson(box.get(i.toString())));
+      }
     });
+    return blogs;
   }
 }

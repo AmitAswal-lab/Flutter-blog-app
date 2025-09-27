@@ -1,27 +1,39 @@
-import 'package:isar/isar.dart';
+import 'package:bloc_app_clean_solidp_bloc/feature/blog/domain/entities/blog.dart';
 
-part 'blog_model.g.dart'; // For the code generator
+class BlogModel extends Blog {
+  BlogModel({
+    required super.id,
+    required super.posterId,
+    required super.title,
+    required super.content,
+    required super.topics,
+    required super.updatedAt,
+    required super.imageUrl,
+    super.posterName,
+  });
 
-@collection
-class BlogModel {
-  // THE CHANGE: Use the standard Isar auto-incrementing ID type.
-  Id isarId = Isar.autoIncrement;
+  BlogModel copyWith({
+    String? id,
+    String? posterId,
+    String? title,
+    String? content,
+    List<String>? topics,
+    String? imageUrl,
+    DateTime? updatedAt,
+    String? posterName,
+  }) {
+    return BlogModel(
+      id: id ?? this.id,
+      posterId: posterId ?? this.posterId,
+      title: title ?? this.title,
+      content: content ?? this.content,
+      topics: topics ?? this.topics,
+      imageUrl: imageUrl ?? this.imageUrl,
+      updatedAt: updatedAt ?? this.updatedAt,
+      posterName: posterName ?? this.posterName,
+    );
+  }
 
-  @Index(unique: true, replace: true)
-  late String id; // Your original UUID from Supabase
-
-  late String posterId;
-  late String title;
-  late String content;
-  late List<String> topics;
-  late DateTime updatedAt;
-  late String imageUrl;
-  String? posterName;
-
-  // No-argument constructor
-  BlogModel();
-
-  // Your fromJson and toJson methods remain unchanged, but are here for completeness.
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'id': id,
@@ -31,21 +43,20 @@ class BlogModel {
       'topics': topics,
       'image_url': imageUrl,
       'updated_at': updatedAt.toIso8601String(),
-      'poster_name': posterName,
     };
   }
 
   factory BlogModel.fromJson(Map<String, dynamic> map) {
-    return BlogModel()
-      ..id = map['id'] as String
-      ..posterId = map['poster_id'] as String
-      ..title = map['title'] as String
-      ..content = map['content'] as String
-      ..imageUrl = map['image_url'] as String
-      ..topics = List<String>.from(map['topics'])
-      ..updatedAt = map['updated_at'] == null
+    return BlogModel(
+      id: map['id'] as String,
+      posterId: map['poster_id'] as String,
+      title: map['title'] as String,
+      content: map['content'] as String,
+      imageUrl: map['image_url'] as String,
+      topics: List<String>.from(map['topics']),
+      updatedAt: map['updated_at'] == null
           ? DateTime.now()
-          : DateTime.parse(map['updated_at'])
-      ..posterName = map['poster_name'] as String?;
+          : DateTime.parse(map['updated_at']),
+    );
   }
 }

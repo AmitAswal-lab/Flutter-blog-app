@@ -16,10 +16,9 @@ import 'package:bloc_app_clean_solidp_bloc/feature/blog/domain/usecases/get_all_
 import 'package:bloc_app_clean_solidp_bloc/feature/blog/domain/usecases/upload_blog.dart';
 import 'package:bloc_app_clean_solidp_bloc/feature/blog/presentation/bloc/blog_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:hive/hive.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:bloc_app_clean_solidp_bloc/feature/blog/data/models/blog_model.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'init_dependencies_main.dart';
