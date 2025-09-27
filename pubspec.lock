@@ -165,6 +165,7 @@ packages:
     dependency: transitive
     description:
       name: dart_style
+
       sha256: "1efa911ca7086affd35f463ca2fc1799584fb6aa89883cf0af8e3664d6a02d55"
       url: "https://pub.dev"
     source: hosted
