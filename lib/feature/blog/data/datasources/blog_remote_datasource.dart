@@ -24,6 +24,8 @@ class BlogRemoteDatasourceImpl extends BlogRemoteDatasource {
           .insert(blog.toJson())
           .select();
       return BlogModel.fromJson(blogData.first);
+    } on PostgrestException catch (e) {
+      throw ServerException(e.message);
     } on ServerException catch (e) {
       throw ServerException(e.toString());
     }
@@ -55,6 +57,8 @@ class BlogRemoteDatasourceImpl extends BlogRemoteDatasource {
             ).copyWith(posterName: blog['profiles']['name']),
           )
           .toList();
+    } on PostgrestException catch (e) {
+      throw ServerException(e.message);
     } catch (e) {
       throw ServerException(e.toString());
     }
